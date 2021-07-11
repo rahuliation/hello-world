@@ -5,10 +5,11 @@ export const GET_TODO_LIST_COLLECTIONS = gql`
     todoListCollections @client {
       id
       name
-      tasks  {
+      tasks {
         id
         name
         done
+        taskListId
       }
     }
   }

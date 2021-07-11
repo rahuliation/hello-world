@@ -14,6 +14,7 @@
     "@types/react-responsive": "^8.0.3",
     "antd": "^4.16.6",
     "apollo-link-rest": "^0.8.0-beta.0",
+    "apollo3-cache-persist": "^0.10.0",
     "dexie": "^3.0.3",
     "graphql": "^15.5.1",
     "graphql-anywhere": "^4.2.7",

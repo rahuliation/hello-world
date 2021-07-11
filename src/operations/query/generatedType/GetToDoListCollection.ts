@@ -12,6 +12,7 @@ export interface GetToDoListCollection_todoListCollections_tasks {
   id: number;
   name: string;
   done: boolean;
+  taskListId: number;
 }
 
 export interface GetToDoListCollection_todoListCollections {

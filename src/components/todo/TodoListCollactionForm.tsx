@@ -23,17 +23,19 @@ const TodoListCollactionForm = ({
       onFinish={(data) => {
         onFinish(data);
         form.resetFields();
+        setFormValues({});
       }}
       onValuesChange={(values) => setFormValues(values)}
       form={form}
     >
       <Form.Item name="name" className="fl w-80">
-        <Input placeholder={placeholder} />
+        <Input size="small" className="w-100" placeholder={placeholder} />
       </Form.Item>
       <Form.Item className="fl pl3 w-20">
         <Button
           disabled={_.isEmpty(_.get(formValues, "name"))}
           type="primary"
+          size="small"
           htmlType="submit"
         >
           create

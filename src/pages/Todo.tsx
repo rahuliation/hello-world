@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import {  useQuery } from "@apollo/client";
 import _ from "lodash";
 import TodoListCollactionForm from "src/components/todo/TodoListCollactionForm";
 import TodoListCollaction from "src/components/todo/TodoListCollection";
@@ -30,7 +30,7 @@ const Todo = () => {
       />
       <div className="fl w-100">
         {todoListCollections.map((collection) => (
-          <div className="fl w-third pa2">
+          <div className="fl w-100 w-50-ns pa2">
             <TodoListCollaction
               {...(collection as GetToDoListCollection_todoListCollections)}
             />
