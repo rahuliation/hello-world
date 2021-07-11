@@ -9,14 +9,14 @@
 
 export interface GetToDoListCollection_todoListCollections_tasks {
   __typename: "Task";
-  id: string;
+  id: number;
   name: string;
   done: boolean;
 }
 
 export interface GetToDoListCollection_todoListCollections {
   __typename: "TaskList";
-  id: string;
+  id: number;
   name: string;
   tasks: (GetToDoListCollection_todoListCollections_tasks | null)[];
 }

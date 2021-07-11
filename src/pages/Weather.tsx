@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { GET_WEATHER } from "src/fetch/weather.query";
 import myLayoutHOC from "src/layouts/MyLayout";
+import { GET_WEATHER } from "src/operations/query/weather.query";
 
 const Weather = () => {
   const { loading, error, data } = useQuery(GET_WEATHER, {

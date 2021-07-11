@@ -43,7 +43,8 @@ const restLink = new RestLink({
 const client = new ApolloClient({
   link: ApolloLink.from([restLink, httpLink]),
   cache,
-  typeDefs
+  typeDefs,
+  connectToDevTools: true,
 });
 
 ReactDOM.render(

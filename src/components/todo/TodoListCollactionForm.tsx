@@ -4,10 +4,14 @@ import { useState } from "react";
 
 
 interface TodoListCollactionFormPropsType {
-  onFinish: (data: any) => void
+  onFinish: (data: any) => void;
+  placeholder: string;
 }
 
-const TodoListCollactionForm = ({ onFinish}: TodoListCollactionFormPropsType) => {
+const TodoListCollactionForm = ({
+  onFinish,
+  placeholder,
+}: TodoListCollactionFormPropsType) => {
   const [formValues, setFormValues] = useState({});
 
   const [form] = Form.useForm();
@@ -24,10 +28,14 @@ const TodoListCollactionForm = ({ onFinish}: TodoListCollactionFormPropsType) =>
       form={form}
     >
       <Form.Item name="name" className="fl w-80">
-        <Input placeholder="Task List Name" />
+        <Input placeholder={placeholder} />
       </Form.Item>
       <Form.Item className="fl pl3 w-20">
-        <Button disabled={_.isEmpty(_.get(formValues, 'name'))} type="primary" htmlType="submit">
+        <Button
+          disabled={_.isEmpty(_.get(formValues, "name"))}
+          type="primary"
+          htmlType="submit"
+        >
           create
         </Button>
       </Form.Item>

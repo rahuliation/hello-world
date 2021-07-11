@@ -3,13 +3,13 @@ import { gql } from "@apollo/client";
 
 const todo = gql`
   type Task {
-    id: ID!
+    id: Int!
     name: String!
     done: Boolean!
   }
 
   type TaskList {
-    id: ID!
+    id: Int!
     name: String!
     tasks: [Task]!
   }

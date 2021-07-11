@@ -1,11 +1,14 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import _ from "lodash";
-import { todoListCollectionsVar } from "src/cache";
 import TodoListCollactionForm from "src/components/todo/TodoListCollactionForm";
 import TodoListCollaction from "src/components/todo/TodoListCollection";
-import { GetToDoListCollection } from "src/fetch/generatedType/GetToDoListCollection";
-import { GET_TODO_LIST_COLLECTIONS } from "src/fetch/todo.query";
+import { GET_TODO_LIST_COLLECTIONS } from "src/operations/query/todo.query";
 import myLayoutHOC from "src/layouts/MyLayout";
+import {
+  GetToDoListCollection,
+  GetToDoListCollection_todoListCollections,
+} from "src/operations/query/generatedType/GetToDoListCollection";
+import { createTodosCollections } from "src/operations/mutations/todo.mutation";
 
 const Todo = () => {
   const { loading, error, data } = useQuery<GetToDoListCollection>(
@@ -20,22 +23,17 @@ const Todo = () => {
   return (
     <div className="f7">
       <TodoListCollactionForm
+        placeholder="Title of List"
         onFinish={(fields) => {
-          todoListCollectionsVar([
-            ...todoListCollectionsVar(),
-            {
-              __typename: "TaskList",
-              id: _.size(todoListCollections).toString(),
-              name: _.capitalize(fields.name),
-              tasks: [],
-            },
-          ]);
+          createTodosCollections(fields.name);
         }}
       />
       <div className="fl w-100">
         {todoListCollections.map((collection) => (
-          <div className="fl w-20 pa2">
-            <TodoListCollaction {...collection} />
+          <div className="fl w-third pa2">
+            <TodoListCollaction
+              {...(collection as GetToDoListCollection_todoListCollections)}
+            />
           </div>
         ))}
       </div>

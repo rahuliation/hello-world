@@ -1,10 +1,11 @@
 module.exports = {
   client: {
-    includes: ['src/**/*.{ts,tsx}'],
+    includes: ["src/**/*.{ts,tsx}"],
     service: {
       name: "hello-world",
       tagName: "gql",
-      localSchemaFile: ["./client-schema.graphql"],
+      localSchemaFile: ["./client-schema.gql"],
+      passthroughCustomScalars: false
     },
   },
 };
