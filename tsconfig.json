@@ -18,8 +18,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./"
   },
+  "exclude": [
+    "build",
+    "node_modules",
+    "static"
+  ],
   "include": [
     "src"
   ]
