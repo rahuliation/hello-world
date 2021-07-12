@@ -21,7 +21,9 @@ const Todo = () => {
   if (error) return <>Error! ${error.message}</>;
 
   return (
-    <div className="f7">
+    <div className="f7 h-100">
+      <span className="db f1 lh-title bb mb4">Todo APP</span>
+
       <TodoListCollactionForm
         placeholder="Title of List"
         onFinish={(fields) => {
