@@ -13,16 +13,9 @@ import WeatherCard from "src/components/todo/WeatherCard";
 
 const { Option } = Select;
 
-const defaultCord = {
-  city: "Dhaka",
-  lat: 23.7231,
-  lng: 90.4086,
-  country: "Bangladesh",
-  population: 12797394,
-};
-
+const defaultCord = 1;
 const Weather = () => {
-  const [city, setCity] = useState(defaultCord);
+  const [cityIndex, setCityIndex] = useState<number>(defaultCord);
 
   const {
     loading,
@@ -31,41 +24,43 @@ const Weather = () => {
     refetch: refetchWeather,
   } = useQuery<GetWeather, GetWeatherVariables>(GET_WEATHER, {
     variables: {
-      lat: city.lat,
-      lon: city.lng,
+      lat: cities[cityIndex].lat,
+      lon: cities[cityIndex].lng,
     },
   });
 
   useEffect(() => {
     refetchWeather({
-      lat: city.lat,
-      lon: city.lng,
+      lat: cities[cityIndex].lat,
+      lon: cities[cityIndex].lng,
     });
-  }, [city, refetchWeather]);
+  }, [cityIndex, refetchWeather]);
 
   useEffect(() => {
     if (navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
         if (position.coords) {
-          const cityData = cities.reduce<{ distance: number; city?: string }>(
-            (state, cityData) => {
+          const newCityIndexData: any = cities.reduce<{
+            distance: number;
+            cityIndex: number;
+          }>(
+            (state, thecity, cityIndex) => {
               const { longitude, latitude } = position.coords;
               const distance = getDistance(
-                cityData.lat,
-                cityData.lng,
+                thecity.lat,
+                thecity.lng,
                 latitude,
                 longitude,
                 "K"
               );
               const minDistance = Math.min(distance, state.distance);
-              return minDistance === distance
-                ? { ...cityData, distance }
-                : state;
+              return minDistance === distance ? { cityIndex, distance } : state;
             },
-            { distance: Number.MAX_SAFE_INTEGER }
+            { cityIndex: -1, distance: Number.MAX_SAFE_INTEGER }
           );
-          if (cityData.city) {
-            setCity(cityData as any);
+          console.log(newCityIndexData.cityIndex);
+          if (newCityIndexData.cityIndex > -1) {
+            setCityIndex(newCityIndexData.cityIndex);
           }
         }
       });
@@ -83,14 +78,14 @@ const Weather = () => {
       <div className="w-100 pv4 flex">
         <span className="w-20 b f4">Search City:</span>
         <Select
-          defaultValue={JSON.stringify(city)}
           optionFilterProp="children"
+          value={cityIndex}
           showSearch
           size="large"
           className="w-100"
           placeholder=" Select A City"
           onChange={(val) => {
-            setCity(JSON.parse(val));
+            setCityIndex(val);
           }}
           filterOption={(input, option: any) =>
             option.children.join().toLowerCase().indexOf(input.toLowerCase()) >=
@@ -98,12 +93,15 @@ const Weather = () => {
           }
         >
           {cities.map((city, key) => (
-            <Option key={key} value={JSON.stringify(city)}>
+            <Option key={key} value={key}>
               {city.city} {city.country}
             </Option>
           ))}
         </Select>
       </div>
+      {cities[cityIndex] && (
+        <span className="f4">{cities[cityIndex].city}</span>
+      )}
 
       {loading && (
         <Space size="large" className="h-100 flex justify-center pa4">
