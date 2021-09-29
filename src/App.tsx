@@ -42,7 +42,7 @@ const App = () => {
               __typename: "WeatherData",
               ...data,
             };
-          },
+          }
         },
       });
 
